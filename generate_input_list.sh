@@ -15,7 +15,7 @@ export R2_identifier="_R2.fq.gz" #the file extension of your reverse sequence fi
 ##  Do not edit below this line                                         ##
 ##----------------------------------------------------------------------##
 
-
+mkdir -p ${workingdir}
 if [ -d "$raw_dir" ] && [ "$(ls -A "$raw_dir")" ]; then
     echo "$raw_dir exist and contain files, now generating inputs.csv"
     for i in ${raw_dir}/*${R1_identifier}; do
