@@ -1,6 +1,6 @@
 #!/bin/bash
 #PBS -N subread
-#PBS -l ncpus=12,mem=120gb,storage=gdata/if89+gdata/xl04,walltime=12:00:00
+#PBS -l ncpus=12,mem=120gb,storage=gdata/if89+gdata/xl04,walltime=36:00:00
 #PBS -j oe
 
 
