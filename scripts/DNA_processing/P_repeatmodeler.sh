@@ -5,7 +5,7 @@
 
 
 
-set -ex
+# set -ex
 module use /g/data/if89/apps/modulefiles
 module load RepeatModeler/2.0.4-conda
 
