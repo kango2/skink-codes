@@ -178,6 +178,8 @@ elif [ "$selected_pipelines" -eq 1 ]; then
         mkdir -p ${workingdir}/OUTPUT/repeatmasker_${directory_name}
         module use /g/data/if89/apps/modulefiles
         module load exonerate/2.4.0
+        ##LOG PURPOSES
+        head -n88 "${BASH_SOURCE[0]}" > ${workingdir}/LOG/P4_${directory_name}.launch.settings
         cd ${workingdir}/OUTPUT/repeatmasker_${directory_name}
         mkdir chunk
         mkdir RMout
@@ -190,9 +192,6 @@ elif [ "$selected_pipelines" -eq 1 ]; then
         for chunk in ${workingdir}/OUTPUT/repeatmasker_${directory_name}/chunk/*chunk*; do
             qsub -P ${PROJECT} -W depend=afterok:${REPEATMODELER_JOBID},beforeok:${REPEATMASKER_MERGE_JOBID} -o ${workingdir}/LOG/P4_repeatmasker_${directory_name}_$(basename ${chunk}).OU -v inputgenome=${chunk},rmlib=${workingdir}/OUTPUT/repeatmodeler_${directory_name}/database/${P_repeatmodeler_prefix}-families.fa,outputdir=${workingdir}/OUTPUT/repeatmasker_${directory_name}/RMout ${repository_path}/scripts/DNA_processing/repeatmasker.sh
         done
-
-        ##LOG PURPOSES
-        head -n88 "$0" > ${workingdir}/LOG/P4_${directory_name}.launch.settings
 
     fi
     exit 1

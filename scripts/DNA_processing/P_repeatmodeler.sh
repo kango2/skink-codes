@@ -12,7 +12,7 @@ module load RepeatModeler/2.0.4-conda
 cd ${workingdir}/repeatmodeler_${directory_name}
 mkdir database
 cd database
-BuildDatabase -name ${prefix} -engine ncbi ${inputgenome}
+BuildDatabase -name ${prefix} -engine ncbi ${genome}
 
 mkdir -p $TMPDIR/${prefix}_RepeatModeler
 cd $TMPDIR/${prefix}_RepeatModeler
