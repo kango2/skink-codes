@@ -10,7 +10,7 @@ module load Trimmomatic/0.39 parallel/20191022
 cd ${workingdir}
 while IFS=',' read -r col1 col2 col3
 do
-    echo -e "trimmomatic PE -threads ${PBS_NCPUS} -phred33 ${col2} ${col3} -baseout ${workingdir}/trimmomatic/${col1}_trimmed.fq.gz ILLUMINACLIP:${repository_path}/scripts/DNA_processing/TruSeq3-PE.fa:2:30:10 ${trimming_option}"
-done < inputs.csv | parallel --jobs ${PBS_NCPUS} {}
+    echo -e "trimmomatic PE -threads ${PBS_NCPUS} -phred33 ${col2} ${col3} -baseout ${workingdir}/trimmomatic_${directory_name}/${col1}_trimmed.fq.gz ILLUMINACLIP:${repository_path}/adapters/TruSeq3-PE.fa:2:30:10 ${trimming_option}"
+done < ${workingdir}/../inputs.csv | parallel --jobs ${PBS_NCPUS} {}
 
 echo -e "P_trimmomatic complete\nPackage version:\n\t- Trimmomatic/0.39" > ${workingdir}/../LOG/P_${directory_name}.packageVersion.txt

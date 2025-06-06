@@ -22,7 +22,7 @@ if [ -d "$raw_dir" ] && [ "$(ls -A "$raw_dir")" ]; then
         filename=$(basename ${i/$R1_identifier/})
         R1_PATH="$i"
         R2_PATH="${raw_dir}/${filename}${R2_identifier}"
-        echo -e "${filename},${R1_PATH},${R2_PATH}"
+        echo -e "${filename},${filename},${R1_PATH},${R2_PATH}"
     done > ${workingdir}/inputs.csv
 else
     echo "The raw_dir directory either does not exist or is empty. Stopping script"

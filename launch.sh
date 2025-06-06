@@ -140,10 +140,35 @@ elif [ "$selected_pipelines" -eq 1 ]; then
             qdel ${SUBREAD_DEPEND}
             exit 1
         fi
+
+        ##LOG PURPOSES
+
     elif [ "$P2_trimmomatic_subread" == "YES" ]; then
         echo "[LOG] Running pipeline: P2_trimmomatic_subread"
+        mkdir -p ${workingdir}/OUTPUT/subread_${directory_name}
+        export SUBREAD_DEPEND=$(qsub -P ${PROJECT} -o ${workingdir}/LOG/P2_subread_${directory_name}.OU -v workingdir=${workingdir}/OUTPUT/subread_${directory_name},genome=${P_genome},input_list=FROM_TRIMMOMATIC,directory_name=${directory_name} ${repository_path}/scripts/DNA_processing/P_subread.sh)
+        mkdir -p ${workingdir}/OUTPUT/trimmomatic_${directory_name}
+        if [ "$P_seqtype" == "DNA" ]; then
+            qsub -P ${PROJECT} -W depend=beforeok:${SUBREAD_DEPEND} -o ${workingdir}/LOG/P2_trimmomatic_${directory_name}.OU -v workingdir=${workingdir}/OUTPUT,repository_path=${repository_path},trimming_option=${P_trimming_option},input_list=${P_input_list},directory_name=${directory_name} ${repository_path}/scripts/DNA_processing/P_trimmomatic.sh
+        elif [ "$P_seqtype" == "RNA" ]; then
+            qsub -P ${PROJECT} -W depend=beforeok:${SUBREAD_DEPEND} -o ${workingdir}/LOG/P2_trimmomatic_${directory_name}.OU -v workingdir=${workingdir}/OUTPUT,repository_path=${repository_path},trimming_option=${P_trimming_option},input_list=${P_input_list},directory_name=${directory_name} ${repository_path}/scripts/RNA_processing/P_trimmomatic.sh
+        else
+            echo "[LOG] Error: Invalid sequence type. Please set P_seqtype to either 'DNA' or 'RNA'."
+            exit 1
+        fi
+
+        ##LOG PURPOSES
+
     elif [ "$P3_subread_bamcoverage" == "YES" ]; then
         echo "[LOG] Running pipeline: P3_subread_bamcoverage"
+        mkdir -p ${workingdir}/OUTPUT/bamcoverage_${directory_name}/raw
+        mkdir -p ${workingdir}/OUTPUT/bamcoverage_${directory_name}/fixed
+        export BAMCOVERAGE_DEPEND=$(qsub -P ${PROJECT} -W depend=on:1 -o ${workingdir}/LOG/P3_bamcoverage_${directory_name}.OU -v workingdir=${workingdir}/OUTPUT,binsize=${P_binsize},input_path=${T_bamdir},directory_name=${directory_name} ${repository_path}/scripts/DNA_processing/P_bamcoverage.sh)
+        mkdir -p ${workingdir}/OUTPUT/subread_${directory_name}
+        export SUBREAD_DEPEND=$(qsub -P ${PROJECT} -W depend=beforeok:${BAMCOVERAGE_DEPEND} -o ${workingdir}/LOG/P3_subread_${directory_name}.OU -v workingdir=${workingdir}/OUTPUT/subread_${directory_name},genome=${P_genome},input_list=${P_input_list},directory_name=${directory_name} ${repository_path}/scripts/DNA_processing/P_subread.sh)
+
+        ##LOG PURPOSES
+
     fi
     exit 1
 fi
