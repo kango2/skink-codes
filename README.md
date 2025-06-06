@@ -71,7 +71,7 @@ SEsample4_MultiLane	SE	US	/path/to/sample4_R1_L001.fq.gz,/path/to/sample4_R1_L00
 ```
 
 # Additional info
-## pipeline P1
+## Pipeline P1
 This trims your raw data with trimmomatic, then map the trimmed data to your genome with subread, and finally calculate read depth coverage in `${P_binsize}` basepair non-overlapping sliding windows.
 `${directory_name}` will be automatically set to the exact time when you launched the job.
 outputs are stored in:
