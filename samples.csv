@@ -1,0 +1,8 @@
+Sample1,Sample1_L001,/path/to/Sample1_L001_R1.fastq.gz,/path/to/Sample1_L001_R2.fastq.gz
+Sample1,Sample1_L002,/path/to/Sample1_L002_R1.fastq.gz,/path/to/Sample1_L002_R2.fastq.gz
+Sample2,Sample2,/path/to/Sample2_R1.fastq.gz,/path/to/Sample2_R2.fastq.gz
+Sample3,Sample3,/path/to/Sample3_R1.fastq.gz,/path/to/Sample3_R2.fastq.gz
+Sample4,Sample4_L001,/path/to/Sample4_L001_R1.fastq.gz,/path/to/Sample4_L001_R2.fastq.gz
+Sample4,Sample4_L002,/path/to/Sample4_L002_R1.fastq.gz,/path/to/Sample4_L002_R2.fastq.gz
+Sample4,Sample4_L003,/path/to/Sample4_L003_R1.fastq.gz,/path/to/Sample4_L003_R2.fastq.gz
+Sample4,Sample4_L004,/path/to/Sample4_L004_R1.fastq.gz,/path/to/Sample4_L004_R2.fastq.gz
