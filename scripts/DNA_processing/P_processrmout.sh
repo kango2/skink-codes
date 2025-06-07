@@ -25,4 +25,4 @@ rm -rf Merged
 
 
 # logging package versions
-echo -e "P_repeatmasker complete\nPackage version:\n\t- RepeatMasker/4.1.2-p1" >> ${workingdir}/../LOG/P_${directory_name}.packageVersion.txt
+echo -e "P_repeatmasker complete\nPackage version:\n\t- RepeatMasker/4.1.2-p1" >> ${workingdir}/../LOG/log_${directory_name}/P.packageVersion.txt

@@ -19,4 +19,4 @@ for i in $(ls *.bedgraph); do python ${repository_path}/scripts/DNA_processing/p
 
 
 export VERSION=$(pip freeze | grep deepTools | sed 's/==/\//g')
-echo -e "T_bamcoverage complete\nPython Package version:\n\t- python/3.9.2\n\t- ${VERSION}" >> ${workingdir}/../LOG/T_${directory_name}.packageVersion.txt
+echo -e "T_bamcoverage complete\nPython Package version:\n\t- python/3.9.2\n\t- ${VERSION}" >> ${workingdir}/../LOG/log_${directory_name}/T.packageVersion.txt

@@ -78,4 +78,4 @@ for i in $(ls *.bam); do echo ${i}; done | \
 parallel --jobs ${PBS_NCPUS} samtools index -b -@ ${PBS_NCPUS} {} {}.bai
 
 # logging package versions
-echo -e "P_subread complete\nPackage version:\n\t- subread/2.1.1\n\t- samtools/1.21" >> ${workingdir}/../LOG/P_${directory_name}.packageVersion.txt
+echo -e "P_subread complete\nPackage version:\n\t- subread/2.1.1\n\t- samtools/1.21" >> ${workingdir}/../LOG/log_${directory_name}/P.packageVersion.txt

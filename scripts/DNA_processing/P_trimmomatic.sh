@@ -16,4 +16,4 @@ do
 done < ${input_list} | parallel --jobs ${PBS_NCPUS} {}
 
 # logging package version
-echo -e "P_trimmomatic complete\nPackage version:\n\t- Trimmomatic/0.39" > ${workingdir}/../LOG/P_${directory_name}.packageVersion.txt
+echo -e "P_trimmomatic complete\nPackage version:\n\t- Trimmomatic/0.39" > ${workingdir}/../LOG/log_${directory_name}/P.packageVersion.txt

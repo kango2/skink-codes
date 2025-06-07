@@ -27,4 +27,4 @@ rsync ${RM_folder}.tar.gz ${workingdir}
 #the .fa file can be fed directory into repeatmasker for soft masking, or you can concatenate it with the taxon repeats library for better repeat coverage
 
 # logging package versions
-echo -e "T_repeatmodeler complete\nPackage version:\n\t- RepeatModeler/2.0.4-conda" >> ${workingdir}/../LOG/T_${directory_name}.packageVersion.txt
+echo -e "T_repeatmodeler complete\nPackage version:\n\t- RepeatModeler/2.0.4-conda" >> ${workingdir}/../LOG/log_${directory_name}/T.packageVersion.txt
