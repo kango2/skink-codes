@@ -95,6 +95,32 @@ export T_repeatmasker_lib="/path/to/repeatlibrary.fa"                       # pa
 #                              End of Configuration                              #
 #                           Do not edit below this line                          #
 #--------------------------------------------------------------------------------#
+#                             launch.sh version 1.0                              #
+#                                                                                #
+
+## Checking if anything is set to "YES" at all, exit if nothing is set to "YES"
+if [ "$P1_trimmomatic_subread_bamcoverage" = "YES" ] || [ "$P2_trimmomatic_subread" = "YES" ] || [ "$P3_subread_bamcoverage" = "YES" ] || [ "$P4_repeatmodeler_repeatmasker" = "YES" ] || [ "$trimmomatic" = "YES" ] || [ "$subread" = "YES" ] || [ "$bamCoverage" = "YES" ] || [ "$trinity" = "YES" ] || [ "$repeatmodeler" = "YES" ] || [ "$repeatmasker" = "YES" ]; then
+    export current_time=$(date)
+    echo -e "${current_time}\n"
+    export directory_name=$(echo ${current_time} | awk '{print $1"_"$3"_"$2"_"$6"_"$5"_"$4}' | sed 's/\:/_/g')
+else
+    echo -e "//===========================\\\\\\\\\n||          WELCOME          ||\n||           v1.0            ||\n\\\\\\===========================//"
+    export current_time=$(date)
+    messages=(
+    "[LOG] No tasks found. Taking a well-deserved nap... zzz"
+    "[LOG] No tasks detected. System entering idle mode..."
+    "[LOG] No tasks available. Initiating self-destruct sequence... Just kidding!"
+    "[LOG] No tasks to process. Time for a coffee break!"
+    "[LOG] No tasks detected. System is now in power-saving mode..."
+    "[LOG] No tasks found. Enjoying a virtual vacation..."
+    "[LOG] No tasks available. Playing solitaire until further notice..."
+    "[LOG] No quests accepted. Returning to the main menu..."
+    "[LOG] No tasks detected. Summoning cat videos instead..."
+    )
+    random_index=$((RANDOM % ${#messages[@]}))
+    echo -e "${current_time}\n\n[LOG] Nothing set to 'YES'. Now exiting...\n${messages[$random_index]}"
+    exit 0
+fi
 
 ## Adding email to scripts if email_notification is set to "YES"
 if [ "$email_notification" = "YES" ]; then
@@ -110,7 +136,6 @@ fi
 mkdir -p ${workingdir}
 mkdir -p ${workingdir}/LOG
 mkdir -p ${workingdir}/OUTPUT
-export directory_name=$(date | awk '{print $1"_"$3"_"$2"_"$6"_"$5"_"$4}' | sed 's/\:/_/g')
 ## Checking if only 1 pipeline is selected
 selected_pipelines=0
 [ "$P1_trimmomatic_subread_bamcoverage" = "YES" ] && selected_pipelines=$((selected_pipelines+1))
@@ -197,3 +222,100 @@ elif [ "$selected_pipelines" -eq 1 ]; then
     exit 1
 fi
 echo "[LOG] Not running pipeline, moving on to individual tools"
+
+
+
+
+
+selected_tools=0
+[ "$trimmomatic" = "YES" ] && selected_tools=$((selected_tools+1))
+[ "$subread" = "YES" ] && selected_tools=$((selected_tools+1))
+[ "$bamCoverage" = "YES" ] && selected_tools=$((selected_tools+1))
+[ "$trinity" = "YES" ] && selected_tools=$((selected_tools+1))
+[ "$repeatmodeler" = "YES" ] && selected_tools=$((selected_tools+1))
+[ "$repeatmasker" = "YES" ] && selected_tools=$((selected_tools+1))
+if [ "$selected_tools" -gt 1 ]; then
+    echo "Error: Multiple tools set to 'YES'. Please select only one to launch at a time."
+    exit 1
+elif [ "$selected_tools" -eq 1 ]; then
+    echo "[LOG] A tool detected, running tool"
+    if [ "$trimmomatic" == "YES" ]; then
+        echo "[LOG] Running tool: trimmomatic"
+        mkdir -p ${workingdir}/OUTPUT/trimmomatic_${directory_name}
+        if [ "$T_seqtype" == "DNA" ]; then
+            qsub -P ${PROJECT} -o ${workingdir}/LOG/T_trimmomatic_${directory_name}.OU -v workingdir=${workingdir}/OUTPUT,repository_path=${repository_path},trimming_option=${T_trimming_option},input_list=${T_input_list},directory_name=${directory_name},repository_path=${repository_path} ${repository_path}/scripts/DNA_processing/T_trimmomatic.sh
+        elif [ "$T_seqtype" == "RNA" ]; then
+            qsub -P ${PROJECT} -o ${workingdir}/LOG/T_trimmomatic_${directory_name}.OU -v workingdir=${workingdir}/OUTPUT,repository_path=${repository_path},trimming_option=${T_trimming_option},input_list=${T_input_list},directory_name=${directory_name},repository_path=${repository_path} ${repository_path}/scripts/RNA_processing/T_trimmomatic.sh
+        else
+            echo "[LOG] Error: Invalid sequence type. Please set \$T_seqtype to either 'DNA' or 'RNA'."
+            exit 1
+        fi
+
+        ##LOG PURPOSES
+        head -n88 "$0" > ${workingdir}/LOG/T_${directory_name}.launch.settings
+        exit 0
+
+    elif [ "$subread" == "YES" ]; then
+        echo "[LOG] Running tool: subread"
+        mkdir -p ${workingdir}/OUTPUT/subread_${directory_name}
+        qsub -P ${PROJECT} -o ${workingdir}/LOG/T_subread_${directory_name}.OU -v workingdir=${workingdir}/OUTPUT,genome=${T_genome},input_list=${T_input_list},directory_name=${directory_name} ${repository_path}/scripts/DNA_processing/T_subread.sh
+
+        ##LOG PURPOSES
+        head -n88 "$0" > ${workingdir}/LOG/T_${directory_name}.launch.settings
+        exit 0
+
+    elif [ "$bamCoverage" == "YES" ]; then
+        echo "[LOG] Running tool: bamCoverage"
+        mkdir -p ${workingdir}/OUTPUT/bamcoverage_${directory_name}
+        mkdir -p ${workingdir}/OUTPUT/bamcoverage_${directory_name}/raw
+        qsub -P ${PROJECT} -o ${workingdir}/LOG/T_bamcoverage_${directory_name}.OU -v workingdir=${workingdir}/OUTPUT,input_path=${T_bamdir},binsize=${T_binsize},directory_name=${directory_name},repository_path=${repository_path} ${repository_path}/scripts/DNA_processing/T_bamcoverage.sh
+        
+        ##LOG PURPOSES
+        head -n88 "$0" > ${workingdir}/LOG/T_${directory_name}.launch.settings
+        exit 0
+
+    elif [ "$trinity" == "YES" ]; then
+        echo "[LOG] Running tool: trinity"
+        mkdir -p ${workingdir}/OUTPUT/trinity_${directory_name}
+        cat ${T_trinity_input_list} | \
+        xargs -l bash -c 'command qsub -j oe -o ${workingdir}/LOG/T_trinity_${directory_name}_${0}.OU \
+        -v outputdir=${workingdir}/OUTPUT/trinity_${directory_name},fileid=\"$0\",seqtype=\"$1\",sstype=\"$2\",leftfq=\"$3\",rightfq=\"$4\" \
+        ${repository_path}/scripts/RNA_processing/T_trinity.sh'
+
+        ##LOG PURPOSES
+        head -n88 "$0" > ${workingdir}/LOG/T_${directory_name}.launch.settings
+        exit 0
+
+    elif [ "$repeatmodeler" == "YES" ]; then
+        echo "[LOG] Running tool: repeatmodeler"
+        mkdir -p ${workingdir}/OUTPUT/repeatmodeler_${directory_name}
+        qsub -P ${PROJECT} -o ${workingdir}/LOG/T_repeatmodeler_${directory_name}.OU -v workingdir=${workingdir}/OUTPUT,genome=${T_repeatmodeler_genome},species=${T_repeatmodeler_prefix},directory_name=${directory_name},repository_path=${repository_path} ${repository_path}/scripts/DNA_processing/T_repeatmodeler.sh
+
+        ##LOG PURPOSES
+        head -n88 "$0" > ${workingdir}/LOG/T_${directory_name}.launch.settings
+        exit 0
+
+    elif [ "$repeatmasker" == "YES" ]; then
+        echo "[LOG] Running tool: repeatmasker"
+        mkdir -p ${workingdir}/OUTPUT/repeatmasker_${directory_name}
+        module use /g/data/if89/apps/modulefiles
+        module load exonerate/2.4.0
+        ##LOG PURPOSES
+        head -n88 "${BASH_SOURCE[0]}" > ${workingdir}/LOG/T_${directory_name}.launch.settings
+        cd ${workingdir}/OUTPUT/repeatmasker_${directory_name}
+        mkdir chunk
+        mkdir RMout
+        mkdir Merged
+        cd chunk
+        fastasplit -f ${T_repeatmasker_genome} -o . -c 8
+        export N_CHUNKS=$(ls *chunk* | wc -l)
+        export REPEATMASKER_MERGE_JOBID=$(qsub -P ${PROJECT} -W depend=on:${N_CHUNKS} -o ${workingdir}/LOG/T_repeatmasker2_${directory_name}.OU -v original_fasta=${T_repeatmasker_genome},chunk=${workingdir}/OUTPUT/repeatmasker_${directory_name}/chunk,RMout=${workingdir}/OUTPUT/repeatmasker_${directory_name}/RMout,Merged_out=${workingdir}/OUTPUT/repeatmasker_${directory_name}/Merged,repository_path=${repository_path} ${repository_path}/scripts/DNA_processing/T_processrmout.sh)
+        for chunk in ${workingdir}/OUTPUT/repeatmasker_${directory_name}/chunk/*chunk*; do
+            qsub -P ${PROJECT} -W depend=beforeok:${REPEATMASKER_MERGE_JOBID} -o ${workingdir}/LOG/T_repeatmasker_${directory_name}_$(basename ${chunk}).OU -v inputgenome=${chunk},rmlib=${T_repeatmasker_lib},outputdir=${workingdir}/OUTPUT/repeatmasker_${directory_name}/RMout ${repository_path}/scripts/DNA_processing/repeatmasker.sh
+        done
+
+    fi
+fi
+
+
+

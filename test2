@@ -1,6 +1,0 @@
-#!/bin/bash
-
-head -n2 "${BASH_SOURCE[0]}"
-echo hi
-cd scripts
-echo hi

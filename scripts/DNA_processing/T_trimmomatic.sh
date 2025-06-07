@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -N P_trimmomatic
+#PBS -N T_trimmomatic
 #PBS -l ncpus=12,mem=120gb,storage=gdata/if89+gdata/xl04,walltime=36:00:00
 #PBS -j oe
 #PBS -M z5205618@ad.unsw.edu.au
@@ -16,4 +16,4 @@ do
 done < ${input_list} | parallel --jobs ${PBS_NCPUS} {}
 
 # logging package version
-echo -e "P_trimmomatic complete\nPackage version:\n\t- Trimmomatic/0.39" > ${workingdir}/../LOG/P_${directory_name}.packageVersion.txt
+echo -e "T_trimmomatic complete\nPackage version:\n\t- Trimmomatic/0.39" > ${workingdir}/../LOG/T_${directory_name}.packageVersion.txt

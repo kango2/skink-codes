@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -N P_bamcoverage
+#PBS -N T_bamcoverage
 #PBS -l ncpus=8,mem=120gb,walltime=8:00:00,storage=gdata/if89+gdata/xl04,jobfs=120GB
 #PBS -j oe
 #PBS -M z5205618@ad.unsw.edu.au
@@ -19,4 +19,4 @@ for i in $(ls *.bedgraph); do python ${repository_path}/scripts/DNA_processing/p
 
 
 export VERSION=$(pip freeze | grep deepTools | sed 's/==/\//g')
-echo -e "P_bamcoverage complete\nPython Package version:\n\t- python/3.9.2\n\t- ${VERSION}" >> ${workingdir}/../LOG/P_${directory_name}.packageVersion.txt
+echo -e "T_bamcoverage complete\nPython Package version:\n\t- python/3.9.2\n\t- ${VERSION}" >> ${workingdir}/../LOG/T_${directory_name}.packageVersion.txt

@@ -1,6 +1,6 @@
 #!/bin/bash
 #PBS -l ncpus=24,mem=60GB,walltime=48:00:00,storage=gdata/if89+gdata/xl04,jobfs=400GB
-#PBS -N P_repeatmodeler
+#PBS -N T_repeatmodeler
 #PBS -j oe
 #PBS -M z5205618@ad.unsw.edu.au
 #PBS -m ae
@@ -27,4 +27,4 @@ rsync ${RM_folder}.tar.gz ${workingdir}
 #the .fa file can be fed directory into repeatmasker for soft masking, or you can concatenate it with the taxon repeats library for better repeat coverage
 
 # logging package versions
-echo -e "P_repeatmodeler complete\nPackage version:\n\t- RepeatModeler/2.0.4-conda" >> ${workingdir}/../LOG/P_${directory_name}.packageVersion.txt
+echo -e "T_repeatmodeler complete\nPackage version:\n\t- RepeatModeler/2.0.4-conda" >> ${workingdir}/../LOG/T_${directory_name}.packageVersion.txt
