@@ -19,7 +19,7 @@ cd $TMPDIR/${species}_RepeatModeler
 RepeatModeler -database ${workingdir}/repeatmodeler_${directory_name}/database/${species} -threads ${PBS_NCPUS} > ${workingdir}/repeatmodeler_${directory_name}/out.log
 export RM_folder=$(ls | grep RM_)
 tar cf - ${RM_folder} | pigz -p ${PBS_NCPUS} > ${RM_folder}.tar.gz
-rsync ${RM_folder}.tar.gz ${workingdir}
+rsync ${RM_folder}.tar.gz ${workingdir}/repeatmodeler_${directory_name}
 
 #output repeat library will be in ${workingdir}/database named:
 #${species}-families.fa
