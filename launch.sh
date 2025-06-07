@@ -131,7 +131,11 @@ if [ "$email_notification" = "YES" ]; then
     sed -i "6s|.*|#PBS -m ae|" ${repository_path}/scripts/DNA_processing/*.sh
     sed -i "6s|.*|#PBS -m ae|" ${repository_path}/scripts/RNA_processing/*.sh
 elif [ "$email_notification" = "NO" ]; then
-    echo -e "[LOG] \$email_notification set to: NO, moving on"
+    echo -e "[LOG] \$email_notification set to: NO, now removing email from scripts"
+    sed -i "5s|.*||" ${repository_path}/scripts/DNA_processing/*.sh
+    sed -i "5s|.*||" ${repository_path}/scripts/RNA_processing/*.sh
+    sed -i "6s|.*||" ${repository_path}/scripts/DNA_processing/*.sh
+    sed -i "6s|.*||" ${repository_path}/scripts/RNA_processing/*.sh
 fi
 #creating working directory and subdirectories if they don't already exist
 mkdir -p ${workingdir}
