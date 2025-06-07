@@ -28,7 +28,7 @@ export P3_subread_bamcoverage="NO"                                          # ei
 export P4_repeatmodeler_repeatmasker="NO"                                   # either "YES" or "NO", If set to "YES", the scripts will run RepeatModeler and RepeatMasker in a single job.
 
 ## Pipeline general settings - input list (needed for P1, P2, P3)
-export P_input_list="${workingdir}/input_list.csv"                          # leave this as it is unless you didn't generate the input list with generate_input_list.sh
+export P_input_list="${workingdir}/inputs.csv"                          # leave this as it is unless you didn't generate the input list with generate_input_list.sh
 
 # Depending on which tools are included in your pipeline, set up the following tool-specific settings.
 ## Pipeline specific settings - trimmomatic
