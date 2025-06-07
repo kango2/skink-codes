@@ -1,4 +1,4 @@
-#!/bin/bash#!/bin/bash
+#!/bin/bash
 
 #
 export workingdir="/path/to/workingdir" #Directory where your copy of config.sh is in
