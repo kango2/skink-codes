@@ -2,8 +2,8 @@
 #PBS -l ncpus=32,mem=120GB,walltime=32:00:00,storage=gdata/if89+gdata/xl04,jobfs=60GB
 #PBS -N repeatmasker
 #PBS -j oe
-
-
+#PBS -M z5205618@ad.unsw.edu.au
+#PBS -m ae
 
 set -ex
 module use /g/data/if89/apps/modulefiles

@@ -112,12 +112,12 @@ export T_repeatmasker_lib="/path/to/repeatlibrary.fa"                           
 
 ## Checking if anything is set to "YES" at all, exit if nothing is set to "YES"
 if [ "$P1_trimmomatic_subread_bamcoverage" = "YES" ] || [ "$P2_trimmomatic_subread" = "YES" ] || [ "$P3_subread_bamcoverage" = "YES" ] || [ "$P4_repeatmodeler_repeatmasker" = "YES" ] || [ "$P5_trinity_blastxtranslation" = "YES" ] || [ "$trimmomatic" = "YES" ] || [ "$subread" = "YES" ] || [ "$bamCoverage" = "YES" ] || [ "$trinity" = "YES" ] || [ "$blastxtranslation" = "YES" ] || [ "$repeatmodeler" = "YES" ] || [ "$repeatmasker" = "YES" ]; then
-    echo -e "//===========================\\\\\\\\\n||          WELCOME          ||\n||           v1.0            ||\n\\\\\\===========================//"
+    echo -e "//===========================\\\\\\\\\n||          WELCOME          ||\n||           v1.1            ||\n\\\\\\===========================//"
     export current_time=$(date)
     echo -e "${current_time}\n"
     export directory_name=$(echo ${current_time} | awk '{print $1"_"$3"_"$2"_"$6"_"$5"_"$4}' | sed 's/\:/_/g')
 else
-    echo -e "//===========================\\\\\\\\\n||          WELCOME          ||\n||           v1.0            ||\n\\\\\\===========================//"
+    echo -e "//===========================\\\\\\\\\n||          WELCOME          ||\n||           v1.1            ||\n\\\\\\===========================//"
     export current_time=$(date)
     messages=(
     "[LOG] No tasks found. Taking a well-deserved nap... zzz"

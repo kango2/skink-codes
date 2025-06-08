@@ -2,8 +2,8 @@
 #PBS -N diamond
 #PBS -l ncpus=32,walltime=2:00:00,storage=gdata/if89+gdata/xl04,mem=80GB,jobfs=80GB
 #PBS -j oe
-
-
+#PBS -M z5205618@ad.unsw.edu.au
+#PBS -m ae
 
 module use /g/data/if89/apps/modulefiles
 module load diamond/2.1.9 perllib/v5.26.3
