@@ -2,8 +2,8 @@
 #PBS -N P_processrmout
 #PBS -l ncpus=1,mem=80GB,walltime=00:30:00,storage=gdata/if89+gdata/xl04
 #PBS -j oe
-#PBS -M z5205618@ad.unsw.edu.au
-#PBS -m ae
+
+
 
 module use /g/data/if89/apps/modulefiles
 module load perllib/v5.26.3

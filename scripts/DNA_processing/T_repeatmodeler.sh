@@ -2,8 +2,8 @@
 #PBS -l ncpus=24,mem=60GB,walltime=48:00:00,storage=gdata/if89+gdata/xl04,jobfs=400GB
 #PBS -N T_repeatmodeler
 #PBS -j oe
-#PBS -M z5205618@ad.unsw.edu.au
-#PBS -m ae
+
+
 
 set -ex
 module use /g/data/if89/apps/modulefiles
