@@ -1,5 +1,5 @@
 #!/bin/bash
-#PBS -N diamond
+#PBS -N blastxtranslation
 #PBS -l ncpus=32,walltime=2:00:00,storage=gdata/if89+gdata/xl04,mem=80GB,jobfs=80GB
 #PBS -j oe
 

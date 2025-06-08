@@ -12,7 +12,7 @@ export repository_path="/g/data/xl04/jc4878/github/skink-codes"                 
 ## The path to the directory everything will be written to (your working directory, where the output will be stored)
 export workingdir="/g/data/xl04/jc4878/workingdir"                                                          # do not put trailing "/" at the end                  
 ## Email notification settings
-export email_notification="YES"                                                                             # either "YES" or "NO", If set to "YES", scripts in the repository will have line 5-6 changed to include your email address before submitting jobs.
+export email_notification="NO"                                                                             # either "YES" or "NO", If set to "YES", scripts in the repository will have line 5-6 changed to include your email address before submitting jobs.
 export email_address="z5205618@ad.unsw.edu.au"                                                              # Set to your email address if you want notifications, otherwise leave it empty.
 #export PROJECT="xl04"                                                                                      # This should already be automatically set to your project, but you can manually change it here if needed.
 
