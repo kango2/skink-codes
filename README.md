@@ -114,3 +114,9 @@ outputs are stored in:
 
 ## Pipeline P5
 This generates a trinity de novo transcriptome assembly for each RNA-seq sample, then blast the assembly to uniprot_swissprot database to translate into cds and peptide.
+outputs are stored in:
+```
+├── ${workingdir}/OUTPUT
+│   └── trinity_${directory_name}
+│   └── blastxtranslation_${directory_name}
+```
