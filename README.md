@@ -111,3 +111,6 @@ outputs are stored in:
 │   └── repeatmodeler_${directory_name}
 │   └── repeatmasker_${directory_name}
 ```
+
+## Pipeline P5
+This generates a trinity de novo transcriptome assembly for each RNA-seq sample, then blast the assembly to uniprot_swissprot database to translate into cds and peptide.

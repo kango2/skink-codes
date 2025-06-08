@@ -2,8 +2,9 @@
 #PBS -lncpus=48,mem=190GB,walltime=48:00:00,storage=gdata/xl04+gdata/if89,jobfs=400GB
 #PBS -N trinity
 #PBS -P xl04
-#PBS -M z5205618@ad.unsw.edu.au
-#PBS -m ae
+
+
+
 module use /g/data/if89/apps/modulefiles
 module unload samtools jellyfish bowtie2 salmon python3/3.9.2 trinity/2.12.0 seqkit/2.5.1
 module load samtools/1.21 jellyfish/2.3.0 bowtie2/2.3.5.1 salmon/1.1.0 python3/3.9.2 trinity/2.12.0 seqkit/2.5.1

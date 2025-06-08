@@ -2,4 +2,6 @@
        repository version 1.0
        P4 and P3 tested, they work
        Tsubread tested, it works
-       
+-- 9th Jun 2025
+       repository version 1.1
+       Added individual tool blastxtranslation and new pipeline P5

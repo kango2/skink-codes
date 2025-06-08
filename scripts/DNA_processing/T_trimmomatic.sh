@@ -2,8 +2,8 @@
 #PBS -N T_trimmomatic
 #PBS -l ncpus=12,mem=120gb,storage=gdata/if89+gdata/xl04,walltime=36:00:00
 #PBS -j oe
-#PBS -M z5205618@ad.unsw.edu.au
-#PBS -m ae
+
+
 
 module use /g/data/if89/apps/modulefiles
 module load Trimmomatic/0.39 parallel/20191022
