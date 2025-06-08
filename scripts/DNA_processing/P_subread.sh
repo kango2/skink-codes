@@ -60,6 +60,7 @@ for sample in $(cut -d' ' -f1 ${workingdir}/subread_${directory_name}/tmpfile | 
         lanes=$(grep "^$sample " ${workingdir}/subread_${directory_name}/tmpfile | awk '{print $2}')
         for lane in $lanes; do
             mv ${lane}_subread.bam ${workingdir}/subread_${directory_name}/mapping/unmerged/
+            mv ${lane}_subread.bam.indel.vcf ${workingdir}/subread_${directory_name}/mapping/unmerged/
         done
     fi
 done
