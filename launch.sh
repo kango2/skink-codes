@@ -177,9 +177,9 @@ elif [ "$selected_pipelines" -eq 1 ]; then
         export SUBREAD_DEPEND=$(qsub -P ${PROJECT} -W depend=on:1,depend=beforeok:${BAMCOVERAGE_DEPEND} -o ${workingdir}/LOG/log_${directory_name}/P1_subread.OU -v workingdir=${workingdir}/OUTPUT,genome=${P_genome},input_list=${P_input_list},directory_name=${directory_name},FROM_TRIMMOMATIC=YES ${repository_path}/scripts/DNA_processing/P_subread.sh)
         mkdir -p ${workingdir}/OUTPUT/trimmomatic_${directory_name}
         if [ "$P_seqtype" == "DNA" ]; then
-            qsub -P ${PROJECT} -W depend=beforeok:${SUBREAD_DEPEND} -o ${workingdir}/LOG/log_${directory_name}/P1_trimmomatic.OU -v workingdir=${workingdir}/OUTPUT,repository_path=${repository_path},trimming_option=${P_trimming_option},input_list=${P_input_list},directory_name=${directory_name},repository_path=${repository_path} ${repository_path}/scripts/DNA_processing/P_trimmomatic.sh
+            qsub -P ${PROJECT} -W depend=beforeok:${SUBREAD_DEPEND} -o ${workingdir}/LOG/log_${directory_name}/P1_trimmomatic.OU -v workingdir=${workingdir}/OUTPUT,repository_path=${repository_path},trimming_option="${P_trimming_option}",input_list=${P_input_list},directory_name=${directory_name},repository_path=${repository_path} ${repository_path}/scripts/DNA_processing/P_trimmomatic.sh
         elif [ "$P_seqtype" == "RNA" ]; then
-            qsub -P ${PROJECT} -W depend=beforeok:${SUBREAD_DEPEND} -o ${workingdir}/LOG/log_${directory_name}/P1_trimmomatic.OU -v workingdir=${workingdir}/OUTPUT,repository_path=${repository_path},trimming_option=${P_trimming_option},input_list=${P_input_list},directory_name=${directory_name},repository_path=${repository_path} ${repository_path}/scripts/RNA_processing/P_trimmomatic.sh
+            qsub -P ${PROJECT} -W depend=beforeok:${SUBREAD_DEPEND} -o ${workingdir}/LOG/log_${directory_name}/P1_trimmomatic.OU -v workingdir=${workingdir}/OUTPUT,repository_path=${repository_path},trimming_option="${P_trimming_option}",input_list=${P_input_list},directory_name=${directory_name},repository_path=${repository_path} ${repository_path}/scripts/RNA_processing/P_trimmomatic.sh
         else
             echo "[LOG] Error: Invalid sequence type. Please set \$P_seqtype to either 'DNA' or 'RNA'."
             qdel ${BAMCOVERAGE_DEPEND}
@@ -197,9 +197,9 @@ elif [ "$selected_pipelines" -eq 1 ]; then
         export SUBREAD_DEPEND=$(qsub -P ${PROJECT} -W depend=on:1 -o ${workingdir}/LOG/log_${directory_name}/P2_subread.OU -v workingdir=${workingdir}/OUTPUT,genome=${P_genome},input_list=${P_input_list},directory_name=${directory_name},FROM_TRIMMOMATIC=YES ${repository_path}/scripts/DNA_processing/P_subread.sh)
         mkdir -p ${workingdir}/OUTPUT/trimmomatic_${directory_name}
         if [ "$P_seqtype" == "DNA" ]; then
-            qsub -P ${PROJECT} -W depend=beforeok:${SUBREAD_DEPEND} -o ${workingdir}/LOG/log_${directory_name}/P2_trimmomatic.OU -v workingdir=${workingdir}/OUTPUT,repository_path=${repository_path},trimming_option=${P_trimming_option},input_list=${P_input_list},directory_name=${directory_name},repository_path=${repository_path} ${repository_path}/scripts/DNA_processing/P_trimmomatic.sh
+            qsub -P ${PROJECT} -W depend=beforeok:${SUBREAD_DEPEND} -o ${workingdir}/LOG/log_${directory_name}/P2_trimmomatic.OU -v workingdir=${workingdir}/OUTPUT,repository_path=${repository_path},trimming_option="${P_trimming_option}",input_list=${P_input_list},directory_name=${directory_name},repository_path=${repository_path} ${repository_path}/scripts/DNA_processing/P_trimmomatic.sh
         elif [ "$P_seqtype" == "RNA" ]; then
-            qsub -P ${PROJECT} -W depend=beforeok:${SUBREAD_DEPEND} -o ${workingdir}/LOG/log_${directory_name}/P2_trimmomatic.OU -v workingdir=${workingdir}/OUTPUT,repository_path=${repository_path},trimming_option=${P_trimming_option},input_list=${P_input_list},directory_name=${directory_name},repository_path=${repository_path} ${repository_path}/scripts/RNA_processing/P_trimmomatic.sh
+            qsub -P ${PROJECT} -W depend=beforeok:${SUBREAD_DEPEND} -o ${workingdir}/LOG/log_${directory_name}/P2_trimmomatic.OU -v workingdir=${workingdir}/OUTPUT,repository_path=${repository_path},trimming_option="${P_trimming_option}",input_list=${P_input_list},directory_name=${directory_name},repository_path=${repository_path} ${repository_path}/scripts/RNA_processing/P_trimmomatic.sh
         else
             echo "[LOG] Error: Invalid sequence type. Please set \$P_seqtype to either 'DNA' or 'RNA'."
             exit 1
@@ -295,9 +295,9 @@ elif [ "$selected_tools" -eq 1 ]; then
         echo "[LOG] Running tool: trimmomatic"
         mkdir -p ${workingdir}/OUTPUT/trimmomatic_${directory_name}
         if [ "$T_seqtype" == "DNA" ]; then
-            qsub -P ${PROJECT} -o ${workingdir}/LOG/log_${directory_name}/T_trimmomatic.OU -v workingdir=${workingdir}/OUTPUT,repository_path=${repository_path},trimming_option=${T_trimming_option},input_list=${T_input_list},directory_name=${directory_name},repository_path=${repository_path} ${repository_path}/scripts/DNA_processing/T_trimmomatic.sh
+            qsub -P ${PROJECT} -o ${workingdir}/LOG/log_${directory_name}/T_trimmomatic.OU -v workingdir=${workingdir}/OUTPUT,repository_path=${repository_path},trimming_option="${T_trimming_option}",input_list=${T_input_list},directory_name=${directory_name},repository_path=${repository_path} ${repository_path}/scripts/DNA_processing/T_trimmomatic.sh
         elif [ "$T_seqtype" == "RNA" ]; then
-            qsub -P ${PROJECT} -o ${workingdir}/LOG/log_${directory_name}/T_trimmomatic.OU -v workingdir=${workingdir}/OUTPUT,repository_path=${repository_path},trimming_option=${T_trimming_option},input_list=${T_input_list},directory_name=${directory_name},repository_path=${repository_path} ${repository_path}/scripts/RNA_processing/T_trimmomatic.sh
+            qsub -P ${PROJECT} -o ${workingdir}/LOG/log_${directory_name}/T_trimmomatic.OU -v workingdir=${workingdir}/OUTPUT,repository_path=${repository_path},trimming_option="${T_trimming_option}",input_list=${T_input_list},directory_name=${directory_name},repository_path=${repository_path} ${repository_path}/scripts/RNA_processing/T_trimmomatic.sh
         else
             echo "[LOG] Error: Invalid sequence type. Please set \$T_seqtype to either 'DNA' or 'RNA'."
             exit 1
