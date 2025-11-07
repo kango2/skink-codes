@@ -107,7 +107,7 @@ export T_repeatmasker_lib="/path/to/repeatlibrary.fa"                           
 #                              End of Configuration                              #
 #                           Do not edit below this line                          #
 #--------------------------------------------------------------------------------#
-#                             launch.sh version 1.1                              #
+#                             launch.sh version 1.2                              #
 #                                                                                #
 
 ## Checking if anything is set to "YES" at all, exit if nothing is set to "YES"
@@ -237,7 +237,7 @@ elif [ "$selected_pipelines" -eq 1 ]; then
         fastasplit -f ${P_repeatmodeler_genome} -o . -c 8
         export N_CHUNKS=$(ls *chunk* | wc -l)
         export REPEATMODELER_JOBID=$(qsub -P ${PROJECT} -o ${workingdir}/LOG/log_${directory_name}/P4_repeatmodeler.OU -v workingdir=${workingdir}/OUTPUT,genome=${P_repeatmodeler_genome},species=${P_repeatmodeler_prefix},directory_name=${directory_name},repository_path=${repository_path} ${repository_path}/scripts/DNA_processing/P_repeatmodeler.sh)
-        export REPEATMASKER_MERGE_JOBID=$(qsub -P ${PROJECT} -W depend=on:${N_CHUNKS} -o ${workingdir}/LOG/log_${directory_name}/P4_repeatmasker2.OU -v workingdir=${workingdir}/OUTPUT,original_fasta=${P_repeatmodeler_genome},chunk=${workingdir}/OUTPUT/repeatmasker_${directory_name}/chunk,RMout=${workingdir}/OUTPUT/repeatmasker_${directory_name}/RMout,Merged_out=${workingdir}/OUTPUT/repeatmasker_${directory_name}/Merged,repository_path=${repository_path} ${repository_path}/scripts/DNA_processing/P_processrmout.sh)
+        export REPEATMASKER_MERGE_JOBID=$(qsub -P ${PROJECT} -W depend=on:${N_CHUNKS} -o ${workingdir}/LOG/log_${directory_name}/P4_repeatmasker2.OU -v workingdir=${workingdir}/OUTPUT,original_fasta=${P_repeatmodeler_genome},chunk=${workingdir}/OUTPUT/repeatmasker_${directory_name}/chunk,RMout=${workingdir}/OUTPUT/repeatmasker_${directory_name}/RMout,Merged_out=${workingdir}/OUTPUT/repeatmasker_${directory_name}/Merged,repository_path=${repository_path},directory_name=${directory_name} ${repository_path}/scripts/DNA_processing/P_processrmout.sh)
         for chunk in ${workingdir}/OUTPUT/repeatmasker_${directory_name}/chunk/*chunk*; do
             qsub -P ${PROJECT} -W depend=afterok:${REPEATMODELER_JOBID},beforeok:${REPEATMASKER_MERGE_JOBID} -o ${workingdir}/LOG/log_${directory_name}/P4_repeatmasker_$(basename ${chunk}).OU -v inputgenome=${chunk},rmlib=${workingdir}/OUTPUT/repeatmodeler_${directory_name}/database/${P_repeatmodeler_prefix}-families.fa,outputdir=${workingdir}/OUTPUT/repeatmasker_${directory_name}/RMout ${repository_path}/scripts/DNA_processing/repeatmasker.sh
         done
