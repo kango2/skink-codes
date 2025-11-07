@@ -376,7 +376,7 @@ elif [ "$selected_tools" -eq 1 ]; then
         cd chunk
         fastasplit -f ${T_repeatmasker_genome} -o . -c 8
         export N_CHUNKS=$(ls *chunk* | wc -l)
-        export REPEATMASKER_MERGE_JOBID=$(qsub -P ${PROJECT} -W depend=on:${N_CHUNKS} -o ${workingdir}/LOG/log_${directory_name}/T_repeatmasker2.OU -v workingdir=${workingdir}/OUTPUT,original_fasta=${T_repeatmasker_genome},chunk=${workingdir}/OUTPUT/repeatmasker_${directory_name}/chunk,RMout=${workingdir}/OUTPUT/repeatmasker_${directory_name}/RMout,Merged_out=${workingdir}/OUTPUT/repeatmasker_${directory_name}/Merged,repository_path=${repository_path} ${repository_path}/scripts/DNA_processing/T_processrmout.sh)
+        export REPEATMASKER_MERGE_JOBID=$(qsub -P ${PROJECT} -W depend=on:${N_CHUNKS} -o ${workingdir}/LOG/log_${directory_name}/T_repeatmasker2.OU -v workingdir=${workingdir}/OUTPUT,original_fasta=${T_repeatmasker_genome},chunk=${workingdir}/OUTPUT/repeatmasker_${directory_name}/chunk,RMout=${workingdir}/OUTPUT/repeatmasker_${directory_name}/RMout,Merged_out=${workingdir}/OUTPUT/repeatmasker_${directory_name}/Merged,repository_path=${repository_path},directory_name=${directory_name} ${repository_path}/scripts/DNA_processing/T_processrmout.sh)
         for chunk in ${workingdir}/OUTPUT/repeatmasker_${directory_name}/chunk/*chunk*; do
             qsub -P ${PROJECT} -W depend=beforeok:${REPEATMASKER_MERGE_JOBID} -o ${workingdir}/LOG/log_${directory_name}/T_repeatmasker_$(basename ${chunk}).OU -v inputgenome=${chunk},rmlib=${T_repeatmasker_lib},outputdir=${workingdir}/OUTPUT/repeatmasker_${directory_name}/RMout ${repository_path}/scripts/DNA_processing/repeatmasker.sh
         done
