@@ -5,3 +5,6 @@
 -- 9th Jun 2025
        repository version 1.1
        Added individual tool blastxtranslation and new pipeline P5
+-- 8th Nov 2025
+       repository version 1.2
+       Fixed up processrmout not having the variable ${directory_name} passed down to it, only the logging function was affected
